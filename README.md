@@ -1,86 +1,90 @@
-# 🌸 Bloom CRM — 療程堂數管理系統
+# 🌸 Bloom CRM v2 — 療程堂數管理系統
 
-> 專為物理治療師、SPA、芳療、按摩業者設計的客戶堂數管理系統
-
-[![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-teal?style=flat-square)](https://your-username.github.io/bloom-crm)
+> 物理治療師 / SPA / 芳療 / 按摩業者專用
 
 ---
 
-## ✨ 功能特色
+## 📁 檔案清單
 
-| 功能 | 說明 |
+| 檔案 | 說明 |
 |------|------|
-| 📋 客戶管理 | 建立客戶檔案，記錄姓名、手機、生日、性別、健康備註 |
-| 💳 堂數儲值 | 支援快速套餐（5/10/20堂）或自訂堂數與金額 |
-| ✂️ 課程扣堂 | 記錄每次療程使用，自動更新剩餘堂數，防呆防扣超額 |
-| 🔍 快速搜尋 | 可用姓名或手機號碼即時搜尋客戶 |
-| 🎂 生日提醒 | 自動計算 30 天內生日客戶，顯示倒數天數 |
-| ⚠️ 堂數預警 | 剩餘 ≤2 堂時自動標示警示，建議主動聯繫儲值 |
-| 📊 儀表板 | 即時顯示總客戶數、總剩餘堂數、累計儲值金額 |
-| 💾 本地儲存 | 所有資料儲存於瀏覽器 localStorage，不需後端伺服器 |
+| `index.html` | CRM 管理後台（你使用）|
+| `style.css` | 所有樣式 |
+| `app.js` | 所有邏輯 |
+| `intake-form.html` | 病患自填病歷表單（給病患的連結）|
+
+---
+
+## ✨ 新增功能（v2）
+
+### 📋 病歷表單（`intake-form.html`）
+- 5 步驟分頁填寫，手機也好用
+- 基本資料、主訴部位、症狀描述、病史、預約方案
+- 疼痛程度色階（1-10）
+- 填完自動存入 localStorage，CRM 後台可收到
+
+### 📬 新進病歷審核
+- CRM 側邊欄有「新進病歷」頁面，顯示病患提交的表單
+- 紅點提示未讀數量
+- 點「審核建檔」自動建立客戶檔案
+- 若手機號碼已存在，自動關聯
+
+### 💳 五大方案快速選擇
+- 體驗價 $799
+- 部位處理 $899
+- 全身調理 $1,800
+- 身體重建計畫 5次 $7,500
+- 長期結構調整會員 10次 $12,500
+
+### 🔗 堂數共享（點數轉贈）
+**方式一：直接轉給指定手機號碼**
+- 輸入對方手機號碼，選擇轉贈堂數
+- 若對方已建檔，自動入帳
+- 若對方未建檔，建檔後可入帳
+
+**方式二：產生分享碼**
+- 產生 6 位英數碼，48 小時有效
+- 分享給親友，對方在系統輸入兌換
+
+### LINE@ 整合說明
+目前版本已預留 LINE 整合位置：
+1. `intake-form.html` 完成後的感謝頁面有「加入 LINE 官方帳號」按鈕
+2. 請將按鈕的 `onclick` 改為：`window.open('https://line.me/R/ti/p/@你的LINE@ID')`
+
+完整 LINE Login 需要 LINE Developers 後端設定，建議之後搭配 Netlify / Vercel 部署。
 
 ---
 
 ## 🚀 部署到 GitHub Pages
 
-### 方法一：直接上傳（最簡單）
+1. 建立新 Repository（如 `bloom-crm`）
+2. 上傳全部 4 個檔案
+3. Settings → Pages → main / root → Save
+4. 你的 CRM：`https://你的帳號.github.io/bloom-crm/`
+5. 病患表單：`https://你的帳號.github.io/bloom-crm/intake-form.html`
 
-1. 在 GitHub 建立一個新的 Repository（例如：`bloom-crm`）
-2. 上傳以下三個檔案：
-   - `index.html`
-   - `style.css`
-   - `app.js`
-3. 進入 Repository → **Settings** → **Pages**
-4. Source 選擇 `Deploy from a branch`，Branch 選 `main`，Folder 選 `/ (root)`
-5. 點 **Save**，等待約 1 分鐘後即可透過以下網址訪問：
-   ```
-   https://your-username.github.io/bloom-crm
-   ```
-
-### 方法二：使用 Git 指令
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: Bloom CRM"
-git remote add origin https://github.com/your-username/bloom-crm.git
-git push -u origin main
-```
+**把病患表單連結放在：**
+- LINE@ 選單
+- 預約確認訊息中
+- Instagram bio 連結
 
 ---
 
-## 📁 檔案結構
+## 💡 使用流程
 
 ```
-bloom-crm/
-├── index.html   # 主要 HTML 架構
-├── style.css    # 所有樣式（CSS 變數、RWD、動畫）
-├── app.js       # 所有邏輯（資料、渲染、事件處理）
-└── README.md    # 本說明文件
+病患掃碼/點連結 → 填寫 intake-form.html
+       ↓
+你開啟 index.html → 側邊欄「新進病歷」看到新提交
+       ↓
+點「審核建檔」→ 自動建立客戶檔案
+       ↓
+客戶到診 → 選方案儲值 → 每次療程扣堂
+       ↓
+客戶可分享堂數給親友（轉贈 / 分享碼）
 ```
-
----
-
-## 🛠️ 技術說明
-
-- **純前端**：零依賴，不需要 Node.js、React 或任何框架
-- **字型**：DM Serif Display + DM Sans（Google Fonts）
-- **資料儲存**：瀏覽器 `localStorage`，重整頁面資料不會遺失
-- **響應式設計**：支援桌機、平板、手機
-
----
-
-## 💡 未來可擴充功能
-
-- [ ] 資料匯出為 CSV / Excel
-- [ ] 預約日曆整合
-- [ ] LINE Notify 生日提醒
-- [ ] 多位治療師帳號管理
-- [ ] 深色模式（Dark Mode）
-- [ ] PWA 離線支援
 
 ---
 
 ## 📄 License
-
-MIT License — 自由使用、修改、商業部署。
+MIT — 自由使用、修改、商業部署。
