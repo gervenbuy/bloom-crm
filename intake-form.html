@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>初診病歷表 — Bloom 身體調理中心</title>
+<title>初診病歷表 — 元序健康調理中心</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
@@ -12,9 +12,8 @@
 :root{
   --ink:#1a1a2e;--ink2:#4a5568;--ink3:#718096;
   --surface:#f7f6f2;--card:#fff;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);
-  --teal:#0d9488;--teal-light:#f0fdfa;--teal-mid:#ccfbf1;
+  --teal:#0d9488;--teal-dark:#0f766e;--teal-light:#f0fdfa;
   --rose:#e11d48;--rose-light:#fff1f2;
-  --gold:#b45309;--gold-light:#fffbeb;
   --r:12px;--r-sm:8px;--r-lg:18px;
   --font-display:'Noto Serif TC',Georgia,serif;
   --font-body:'DM Sans',system-ui,sans-serif;
@@ -22,147 +21,157 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--font-body);background:var(--surface);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* Header */
-.form-header{background:var(--ink);padding:40px 24px 36px;text-align:center;position:relative;overflow:hidden}
-.form-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(13,148,136,0.3),transparent 60%);pointer-events:none}
-.header-logo{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0d9488,#06b6d4);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1}
-.header-logo svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2}
-.header-title{font-family:var(--font-display);font-size:22px;color:#fff;letter-spacing:-0.01em;position:relative;z-index:1}
-.header-sub{font-size:13px;color:#64748b;margin-top:6px;position:relative;z-index:1}
-.header-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-top:24px;position:relative;z-index:1}
-.step-item{display:flex;flex-direction:column;align-items:center;gap:6px}
-.step-dot{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.4);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;transition:all .3s}
-.step-dot.active{background:var(--teal);border-color:var(--teal);color:#fff}
-.step-dot.done{background:rgba(13,148,136,0.3);border-color:var(--teal);color:#5eead4}
-.step-label{font-size:10px;color:rgba(255,255,255,0.4);white-space:nowrap;transition:all .3s}
+/* ── Header ── */
+.form-header{background:var(--ink);padding:36px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.form-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(13,148,136,0.35),transparent 60%);pointer-events:none}
+.header-logo{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#0d9488,#06b6d4);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;position:relative;z-index:1;box-shadow:0 4px 16px rgba(13,148,136,0.4)}
+.header-logo svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2}
+.header-title{font-family:var(--font-display);font-size:20px;color:#fff;letter-spacing:-0.01em;position:relative;z-index:1}
+.header-sub{font-size:12.5px;color:#64748b;margin-top:5px;position:relative;z-index:1}
+
+/* ── Steps ── */
+.steps-row{display:flex;align-items:center;justify-content:center;gap:0;margin-top:22px;position:relative;z-index:1}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:5px}
+.step-dot{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.35);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.step-dot.active{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 0 12px rgba(13,148,136,0.5)}
+.step-dot.done{background:rgba(13,148,136,0.25);border-color:var(--teal);color:#5eead4}
+.step-label{font-size:9.5px;color:rgba(255,255,255,0.35);white-space:nowrap;transition:all .3s}
 .step-label.active{color:#5eead4}
-.step-line{width:32px;height:2px;background:rgba(255,255,255,0.1);margin-bottom:18px}
+.step-line{width:28px;height:2px;background:rgba(255,255,255,0.08);margin-bottom:17px;transition:all .3s}
 .step-line.done{background:rgba(13,148,136,0.4)}
 
-/* Form body */
-.form-body{max-width:680px;margin:0 auto;padding:24px 16px 60px}
-
-/* Sections */
-.form-section{background:var(--card);border-radius:var(--r-lg);border:0.5px solid var(--border);padding:20px;margin-bottom:16px;display:none}
-.form-section.active{display:block;animation:slideIn .25s ease}
-@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.section-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.section-num{width:24px;height:24px;border-radius:50%;background:var(--teal-light);color:var(--teal);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.section-title-text{font-size:15px;font-weight:500;color:var(--ink)}
-.section-desc{font-size:12px;color:var(--ink3);margin-left:auto}
-
-/* Fields */
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.field-row.single{grid-template-columns:1fr}
-.field-row.triple{grid-template-columns:1fr 1fr 1fr}
-.field-group{display:flex;flex-direction:column;gap:5px}
-.field-group.full{grid-column:1/-1}
-.field-label{font-size:11px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:0.05em}
-.field-req{color:var(--rose);margin-left:2px}
-.field-input{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);background:var(--surface);color:var(--ink);font-size:13.5px;font-family:var(--font-body);outline:none;transition:all .15s;-webkit-appearance:none}
-.field-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,0.1);background:var(--card)}
-.field-input::placeholder{color:#a0aec0}
-select.field-input{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-textarea.field-input{resize:vertical;min-height:80px;line-height:1.6}
-
-/* Sub headers */
-.sub-hd{font-size:11.5px;font-weight:500;color:var(--ink2);margin:14px 0 8px;display:flex;align-items:center;gap:6px}
-.sub-hd::after{content:'';flex:1;height:0.5px;background:var(--border)}
-
-/* Checkboxes */
-.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px;margin-bottom:4px}
-.check-grid.compact{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
-.check-grid.wide{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-.ck-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;font-size:12.5px;color:var(--ink2);transition:all .12s;user-select:none;-webkit-user-select:none}
-.ck-item:hover{border-color:#a7f3d0;background:#f0fdfa}
-.ck-item.on{background:var(--teal-light);border-color:#5eead4;color:var(--teal)}
-.ck-box{width:15px;height:15px;border-radius:3px;border:1.5px solid #cbd5e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .12s}
-.ck-item.on .ck-box{background:var(--teal);border-color:var(--teal)}
-.ck-tick{display:none;width:9px;height:9px}
-.ck-item.on .ck-tick{display:block}
-
-/* Radio */
-.rd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
-.rd-grid.wide{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-.rd-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;font-size:12.5px;color:var(--ink2);transition:all .12s;user-select:none;-webkit-user-select:none}
-.rd-item:hover{border-color:#a7f3d0;background:#f0fdfa}
-.rd-item.on{background:var(--teal-light);border-color:#5eead4;color:var(--teal)}
-.rd-dot{width:15px;height:15px;border-radius:50%;border:1.5px solid #cbd5e0;flex-shrink:0;transition:all .12s}
-.rd-item.on .rd-dot{background:var(--teal);border-color:var(--teal);box-shadow:inset 0 0 0 3px #f0fdfa}
-
-/* Pain scale */
-.pain-scale{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:6px}
-.pain-btn{padding:8px 0;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer;text-align:center;transition:all .15s;-webkit-appearance:none}
-.pain-btn:hover{border-color:#a7f3d0;background:#f0fdfa}
-.pain-btn.p1,.pain-btn.p2,.pain-btn.p3{background:#dcfce7;border-color:#86efac;color:#15803d}
-.pain-btn.p4,.pain-btn.p5,.pain-btn.p6{background:#fef9c3;border-color:#fde047;color:#854d0e}
-.pain-btn.p7,.pain-btn.p8{background:#ffedd5;border-color:#fb923c;color:#c2410c}
-.pain-btn.p9,.pain-btn.p10{background:#fee2e2;border-color:#f87171;color:#b91c1c}
-.pain-hint{display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-top:4px}
-
-/* Plan cards */
-.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.plan-card{border:1.5px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .15s;background:var(--surface);position:relative}
-.plan-card:hover{border-color:#5eead4;background:#f0fdfa}
-.plan-card.on{border-color:var(--teal);background:var(--teal-light)}
-.plan-card.featured{border-color:#f59e0b}
-.plan-card.on.featured{border-color:var(--teal)}
-.plan-badge{position:absolute;top:-1px;right:12px;background:#f59e0b;color:#fff;font-size:10px;font-weight:500;padding:2px 8px;border-radius:0 0 6px 6px}
-.plan-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
-.plan-price{font-size:18px;font-weight:600;color:var(--teal);letter-spacing:-0.03em}
-.plan-price-sub{font-size:11px;color:var(--ink3);margin-top:1px}
-.plan-card.on .plan-name{color:var(--teal)}
-.plan-other-input{margin-top:8px;display:none}
-.plan-other-input.show{display:block}
-
-/* Consent */
-.consent-text{background:#fafafa;border:0.5px solid var(--border);border-radius:var(--r-sm);padding:14px;font-size:12px;color:var(--ink3);line-height:1.8;margin-bottom:14px}
-.consent-text strong{color:var(--ink2)}
-
-/* Navigation buttons */
-.nav-row{display:flex;gap:10px;margin-top:20px}
-.btn-back{flex:0 0 auto;padding:12px 20px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);font-size:13.5px;color:var(--ink2);cursor:pointer;font-family:var(--font-body);transition:all .15s}
-.btn-back:hover{background:#eee}
-.btn-next{flex:1;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all .15s;letter-spacing:0.01em}
-.btn-next:hover{background:#0f766e}
-.btn-next:disabled{background:#a7f3d0;cursor:not-allowed}
-.btn-submit{flex:1;padding:13px;background:var(--ink);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all .15s}
-.btn-submit:hover{background:#2d3748}
-
-/* Progress bar */
-.progress-bar{height:3px;background:#e2e8f0;position:relative;overflow:hidden}
+/* ── Progress ── */
+.progress-bar{height:3px;background:#e2e8f0}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),#06b6d4);transition:width .4s ease}
 
-/* Thank you screen */
-.thankyou{display:none;text-align:center;padding:48px 24px}
-.thankyou.show{display:block;animation:slideIn .3s ease}
-.ty-icon{width:64px;height:64px;border-radius:50%;background:var(--teal-light);border:2px solid #5eead4;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
-.ty-icon svg{width:28px;height:28px;stroke:var(--teal);fill:none;stroke-width:2.5}
-.ty-title{font-family:var(--font-display);font-size:22px;color:var(--ink);margin-bottom:8px}
-.ty-sub{font-size:14px;color:var(--ink3);line-height:1.7;margin-bottom:24px}
-.ty-card{background:var(--card);border:0.5px solid var(--border);border-radius:var(--r-lg);padding:16px 20px;margin-bottom:12px;text-align:left}
-.ty-card-title{font-size:12px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px}
-.ty-summary{font-size:13px;color:var(--ink2);line-height:1.8}
+/* ── Body ── */
+.form-body{max-width:660px;margin:0 auto;padding:20px 16px 60px}
+
+/* ── Sections ── */
+.form-section{background:var(--card);border-radius:var(--r-lg);border:0.5px solid var(--border);padding:20px;margin-bottom:14px;display:none}
+.form-section.active{display:block;animation:fadeUp .22s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.section-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.section-num{width:23px;height:23px;border-radius:50%;background:var(--teal-light);color:var(--teal);font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-size:14.5px;font-weight:500;color:var(--ink)}
+.section-note{font-size:11.5px;color:var(--ink3);margin-left:auto}
+
+/* ── Fields ── */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.field-row.one{grid-template-columns:1fr}
+.field-row.three{grid-template-columns:1fr 1fr 1fr}
+.field-group{display:flex;flex-direction:column;gap:4px}
+.field-group.full{grid-column:1/-1}
+.label{font-size:10.5px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}
+.req{color:var(--rose);margin-left:1px}
+.inp{width:100%;padding:9px 11px;border:1px solid var(--border2);border-radius:var(--r-sm);background:var(--surface);color:var(--ink);font-size:13px;font-family:var(--font-body);outline:none;transition:all .15s;-webkit-appearance:none}
+.inp:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,148,136,.1);background:var(--card)}
+.inp::placeholder{color:#a0aec0}
+select.inp{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
+textarea.inp{resize:vertical;min-height:72px;line-height:1.6}
+.err-msg{font-size:11px;color:var(--rose);margin-top:3px;display:none}
+.inp.err{border-color:var(--rose);box-shadow:0 0 0 3px rgba(225,29,72,.1)}
+
+/* ── Sub heading ── */
+.sub-hd{font-size:11px;font-weight:500;color:var(--ink2);margin:12px 0 7px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.04em}
+.sub-hd::after{content:'';flex:1;height:.5px;background:var(--border)}
+
+/* ── Checkboxes ── */
+.ck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px;margin-bottom:2px}
+.ck-grid.sm{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+.ck-grid.lg{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.ck{display:flex;align-items:center;gap:7px;padding:7px 9px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;font-size:12px;color:var(--ink2);transition:all .12s;user-select:none;-webkit-user-select:none}
+.ck:hover{border-color:#a7f3d0;background:#f0fdfa}
+.ck.on{background:var(--teal-light);border-color:#5eead4;color:var(--teal)}
+.ck-box{width:14px;height:14px;border-radius:3px;border:1.5px solid #cbd5e0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.ck.on .ck-box{background:var(--teal);border-color:var(--teal)}
+.ck-tick{display:none;width:8px;height:8px}
+.ck.on .ck-tick{display:block}
+
+/* ── Radio ── */
+.rd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px}
+.rd-grid.lg{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.rd{display:flex;align-items:center;gap:7px;padding:7px 9px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;font-size:12px;color:var(--ink2);transition:all .12s;user-select:none;-webkit-user-select:none}
+.rd:hover{border-color:#a7f3d0;background:#f0fdfa}
+.rd.on{background:var(--teal-light);border-color:#5eead4;color:var(--teal)}
+.rd-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid #cbd5e0;flex-shrink:0;transition:all .12s}
+.rd.on .rd-dot{background:var(--teal);border-color:var(--teal);box-shadow:inset 0 0 0 3px #f0fdfa}
+
+/* ── Pain scale ── */
+.pain-scale{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:5px}
+.pb{padding:7px 0;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);font-size:11.5px;font-weight:500;color:var(--ink3);cursor:pointer;text-align:center;transition:all .15s;-webkit-appearance:none;font-family:var(--font-body)}
+.pb:hover{border-color:#a7f3d0;background:#f0fdfa}
+.pb.p1,.pb.p2,.pb.p3{background:#dcfce7;border-color:#86efac;color:#15803d}
+.pb.p4,.pb.p5,.pb.p6{background:#fef9c3;border-color:#fde047;color:#854d0e}
+.pb.p7,.pb.p8{background:#ffedd5;border-color:#fb923c;color:#c2410c}
+.pb.p9,.pb.p10{background:#fee2e2;border-color:#f87171;color:#b91c1c}
+.pain-hint{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink3);margin-top:4px}
+
+/* ── Plan cards ── */
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plan-card{border:1.5px solid var(--border);border-radius:var(--r);padding:13px;cursor:pointer;transition:all .15s;background:var(--surface);position:relative;-webkit-tap-highlight-color:transparent}
+.plan-card:hover{border-color:#5eead4;background:#f0fdfa}
+.plan-card.on{border-color:var(--teal);background:var(--teal-light)}
+.plan-featured-badge{position:absolute;top:-1px;right:10px;background:#f59e0b;color:#fff;font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:0 0 6px 6px;letter-spacing:.02em}
+.plan-name{font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.plan-price{font-size:17px;font-weight:700;color:var(--teal);letter-spacing:-.03em}
+.plan-desc{font-size:11px;color:var(--ink3);margin-top:2px}
+.plan-card.on .plan-name{color:var(--teal)}
+.plan-other-extra{margin-top:8px;display:none}
+.plan-other-extra.show{display:block}
+
+/* ── Consent ── */
+.consent-box{background:#fafaf9;border:.5px solid var(--border);border-radius:var(--r-sm);padding:13px;font-size:11.5px;color:var(--ink3);line-height:1.85;margin-bottom:12px}
+.consent-box strong{color:var(--ink2)}
+
+/* ── Nav buttons ── */
+.nav-row{display:flex;gap:10px;margin-top:18px}
+.btn-back{flex:0 0 auto;padding:11px 18px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);font-size:13px;color:var(--ink2);cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.btn-back:hover{background:#eee}
+.btn-next{flex:1;padding:12px;background:var(--teal);color:#fff;border:none;border-radius:var(--r);font-size:13.5px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all .15s}
+.btn-next:hover{background:var(--teal-dark)}
+.btn-submit{flex:1;padding:12px;background:var(--ink);color:#fff;border:none;border-radius:var(--r);font-size:13.5px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-submit:hover{background:#2d3748}
+.btn-submit:disabled{background:#94a3b8;cursor:not-allowed}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Thank you ── */
+.thankyou{display:none;text-align:center;padding:44px 20px}
+.thankyou.show{display:block;animation:fadeUp .3s ease}
+.ty-icon{width:60px;height:60px;border-radius:50%;background:var(--teal-light);border:2px solid #5eead4;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.ty-icon svg{width:26px;height:26px;stroke:var(--teal);fill:none;stroke-width:2.5}
+.ty-title{font-family:var(--font-display);font-size:21px;color:var(--ink);margin-bottom:8px}
+.ty-sub{font-size:13.5px;color:var(--ink3);line-height:1.75;margin-bottom:22px}
+.ty-card{background:var(--card);border:.5px solid var(--border);border-radius:var(--r-lg);padding:14px 18px;margin-bottom:10px;text-align:left}
+.ty-card-title{font-size:11px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.ty-summary{font-size:13px;color:var(--ink2);line-height:1.9}
 .ty-summary span{color:var(--teal);font-weight:500}
-.line-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;background:#06c755;color:#fff;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:var(--font-body);width:100%;margin-top:8px;transition:all .15s}
+.line-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;background:#06c755;color:#fff;border-radius:var(--r);font-size:13.5px;font-weight:500;cursor:pointer;border:none;font-family:var(--font-body);width:100%;margin-top:6px;transition:all .15s}
 .line-btn:hover{background:#05a847}
-.line-btn svg{width:22px;height:22px}
+.line-btn svg{width:20px;height:20px}
 
-/* Required field error */
-.field-error{font-size:11px;color:var(--rose);margin-top:4px;display:none}
-.field-input.error{border-color:var(--rose);box-shadow:0 0 0 3px rgba(225,29,72,0.1)}
-
-/* Mobile */
+/* ── Mobile ── */
 @media(max-width:480px){
   .field-row{grid-template-columns:1fr}
   .plan-grid{grid-template-columns:1fr}
   .pain-scale{gap:3px}
-  .pain-btn{font-size:11px;padding:7px 0}
-  .check-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+  .pb{font-size:10.5px;padding:6px 0}
+  .ck-grid{grid-template-columns:repeat(auto-fill,minmax(95px,1fr))}
 }
 </style>
 </head>
 <body>
+
+<!-- ─── 設定區：填入你的 Google Apps Script Webhook URL ─── -->
+<script>
+// ★ 重要：把 Google Apps Script 部署後的 URL 填在這裡
+// 格式：https://script.google.com/macros/s/XXXXXXXX/exec
+var WEBHOOK_URL = '請填入你的_Make_Webhook_URL';
+
+// ★ LINE@ 加入連結（從 LINE Official Account Manager 取得）
+var LINE_OA_URL = 'https://line.me/R/ti/p/@230kztiw';
+</script>
 
 <div class="form-header">
   <div class="header-logo">
@@ -170,7 +179,7 @@ textarea.field-input{resize:vertical;min-height:80px;line-height:1.6}
   </div>
   <div class="header-title">初診病歷表</div>
   <div class="header-sub">請填寫以下資料，協助我們為您提供最適合的療程</div>
-  <div class="header-steps" id="headerSteps">
+  <div class="steps-row">
     <div class="step-item"><div class="step-dot active" id="sd1">1</div><div class="step-label active" id="sl1">基本資料</div></div>
     <div class="step-line" id="sline1"></div>
     <div class="step-item"><div class="step-dot" id="sd2">2</div><div class="step-label" id="sl2">主訴部位</div></div>
@@ -182,463 +191,415 @@ textarea.field-input{resize:vertical;min-height:80px;line-height:1.6}
     <div class="step-item"><div class="step-dot" id="sd5">5</div><div class="step-label" id="sl5">預約方案</div></div>
   </div>
 </div>
-
-<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+<div class="progress-bar"><div class="progress-fill" id="pf" style="width:20%"></div></div>
 
 <div class="form-body">
 
-  <!-- Section 1: 基本資料 -->
-  <div class="form-section active" id="sec1">
-    <div class="section-header">
-      <div class="section-num">1</div>
-      <div class="section-title-text">基本資料</div>
-      <div class="section-desc">* 為必填欄位</div>
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <div class="field-label">姓名<span class="field-req">*</span></div>
-        <input class="field-input" id="f-name" type="text" placeholder="請輸入您的姓名"/>
-        <div class="field-error" id="err-name">請輸入姓名</div>
-      </div>
-      <div class="field-group">
-        <div class="field-label">手機號碼<span class="field-req">*</span></div>
-        <input class="field-input" id="f-phone" type="tel" placeholder="0912-345-678"/>
-        <div class="field-error" id="err-phone">請輸入手機號碼</div>
-      </div>
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <div class="field-label">出生日期</div>
-        <input class="field-input" id="f-bday" type="date"/>
-      </div>
-      <div class="field-group">
-        <div class="field-label">性別</div>
-        <select class="field-input" id="f-gender">
-          <option value="">請選擇</option>
-          <option>男</option><option>女</option><option>其他</option>
-        </select>
-      </div>
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <div class="field-label">職業</div>
-        <input class="field-input" id="f-job" type="text" placeholder="例：上班族、學生、家管"/>
-      </div>
-      <div class="field-group">
-        <div class="field-label">LINE ID（選填）</div>
-        <input class="field-input" id="f-line" type="text" placeholder="您的 LINE ID"/>
-      </div>
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <div class="field-label">緊急聯絡人姓名</div>
-        <input class="field-input" id="f-ec-name" type="text" placeholder="姓名"/>
-      </div>
-      <div class="field-group">
-        <div class="field-label">緊急聯絡人電話</div>
-        <input class="field-input" id="f-ec-phone" type="tel" placeholder="電話號碼"/>
-      </div>
-    </div>
-    <div class="field-row single">
-      <div class="field-group">
-        <div class="field-label">如何得知我們？</div>
-        <div class="rd-grid wide" id="referral-grid">
-          <div class="rd-item" onclick="rdSelect(this,'referral')"><div class="rd-dot"></div>朋友介紹</div>
-          <div class="rd-item" onclick="rdSelect(this,'referral')"><div class="rd-dot"></div>Instagram</div>
-          <div class="rd-item" onclick="rdSelect(this,'referral')"><div class="rd-dot"></div>Facebook</div>
-          <div class="rd-item" onclick="rdSelect(this,'referral')"><div class="rd-dot"></div>Google 搜尋</div>
-          <div class="rd-item" onclick="rdSelect(this,'referral')"><div class="rd-dot"></div>路過看到</div>
-          <div class="rd-item" onclick="rdSelect(this,'referral')"><div class="rd-dot"></div>其他</div>
-        </div>
-      </div>
-    </div>
-    <div class="nav-row">
-      <button class="btn-next" onclick="goNext(1)">下一步：主訴部位 →</button>
-    </div>
+<!-- ── STEP 1 ── -->
+<div class="form-section active" id="sec1">
+  <div class="section-hd"><div class="section-num">1</div><div class="section-title">基本資料</div><div class="section-note">* 為必填</div></div>
+  <div class="field-row">
+    <div class="field-group"><div class="label">姓名<span class="req">*</span></div><input class="inp" id="f-name" type="text" placeholder="請輸入姓名"/><div class="err-msg" id="e-name">請輸入姓名</div></div>
+    <div class="field-group"><div class="label">手機號碼<span class="req">*</span></div><input class="inp" id="f-phone" type="tel" placeholder="0912-345-678"/><div class="err-msg" id="e-phone">請輸入手機號碼</div></div>
   </div>
-
-  <!-- Section 2: 主訴部位 -->
-  <div class="form-section" id="sec2">
-    <div class="section-header">
-      <div class="section-num">2</div>
-      <div class="section-title-text">主訴部位</div>
-      <div class="section-desc">可複選</div>
-    </div>
-
-    <div class="sub-hd">頭頸部</div>
-    <div class="check-grid compact">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>頭部</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>頸部</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>下顎 / TMJ</div>
-    </div>
-
-    <div class="sub-hd">上肢</div>
-    <div class="check-grid compact">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>肩膀</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>上臂</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>手肘</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>前臂</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>手腕 / 手掌</div>
-    </div>
-
-    <div class="sub-hd">軀幹</div>
-    <div class="check-grid compact">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>上背</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>中背</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>下背 / 腰部</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>薦椎 / 尾椎</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>胸口 / 肋骨</div>
-    </div>
-
-    <div class="sub-hd">下肢</div>
-    <div class="check-grid compact">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>臀部 / 髖關節</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>大腿</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>膝蓋</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>小腿</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>腳踝</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>足底 / 腳趾</div>
-    </div>
-
-    <div class="nav-row">
-      <button class="btn-back" onclick="goBack(2)">← 上一步</button>
-      <button class="btn-next" onclick="goNext(2)">下一步：症狀描述 →</button>
-    </div>
+  <div class="field-row">
+    <div class="field-group"><div class="label">出生日期</div><input class="inp" id="f-bday" type="date"/></div>
+    <div class="field-group"><div class="label">性別</div><select class="inp" id="f-gender"><option value="">請選擇</option><option>男</option><option>女</option><option>其他</option></select></div>
   </div>
-
-  <!-- Section 3: 症狀描述 -->
-  <div class="form-section" id="sec3">
-    <div class="section-header">
-      <div class="section-num">3</div>
-      <div class="section-title-text">症狀描述</div>
-      <div class="section-desc">可複選</div>
-    </div>
-
-    <div class="sub-hd" style="margin-top:0">症狀類型</div>
-    <div class="check-grid">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>痠痛</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>緊繃僵硬</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>麻木感</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>刺痛 / 放射痛</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>活動受限</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>無力感</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>腫脹</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>關節彈響</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>姿勢問題</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>頭痛 / 頭暈</div>
-    </div>
-
-    <div class="sub-hd">疼痛程度（請點選）</div>
-    <div class="pain-scale" id="painScale">
-      <button class="pain-btn" onclick="setPain(1)" type="button">1</button>
-      <button class="pain-btn" onclick="setPain(2)" type="button">2</button>
-      <button class="pain-btn" onclick="setPain(3)" type="button">3</button>
-      <button class="pain-btn" onclick="setPain(4)" type="button">4</button>
-      <button class="pain-btn" onclick="setPain(5)" type="button">5</button>
-      <button class="pain-btn" onclick="setPain(6)" type="button">6</button>
-      <button class="pain-btn" onclick="setPain(7)" type="button">7</button>
-      <button class="pain-btn" onclick="setPain(8)" type="button">8</button>
-      <button class="pain-btn" onclick="setPain(9)" type="button">9</button>
-      <button class="pain-btn" onclick="setPain(10)" type="button">10</button>
-    </div>
-    <div class="pain-hint"><span>不太痛</span><span>非常劇烈</span></div>
-
-    <div class="sub-hd">持續時間</div>
-    <div class="rd-grid" id="duration-grid">
-      <div class="rd-item" onclick="rdSelect(this,'duration')"><div class="rd-dot"></div>3 天以內</div>
-      <div class="rd-item" onclick="rdSelect(this,'duration')"><div class="rd-dot"></div>1 週內</div>
-      <div class="rd-item" onclick="rdSelect(this,'duration')"><div class="rd-dot"></div>1 個月內</div>
-      <div class="rd-item" onclick="rdSelect(this,'duration')"><div class="rd-dot"></div>1–3 個月</div>
-      <div class="rd-item" onclick="rdSelect(this,'duration')"><div class="rd-dot"></div>3–6 個月</div>
-      <div class="rd-item" onclick="rdSelect(this,'duration')"><div class="rd-dot"></div>半年以上</div>
-    </div>
-
-    <div class="sub-hd">何時較明顯？</div>
-    <div class="check-grid">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>早晨起床</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>久坐後</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>運動後</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>工作時</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>夜間 / 睡前</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>持續性</div>
-    </div>
-
-    <div class="nav-row">
-      <button class="btn-back" onclick="goBack(3)">← 上一步</button>
-      <button class="btn-next" onclick="goNext(3)">下一步：病史 →</button>
-    </div>
+  <div class="field-row">
+    <div class="field-group"><div class="label">職業</div><input class="inp" id="f-job" type="text" placeholder="例：上班族、學生"/></div>
+    <div class="field-group"><div class="label">LINE ID（選填）</div><input class="inp" id="f-line" type="text" placeholder="您的 LINE ID"/></div>
   </div>
-
-  <!-- Section 4: 病史 -->
-  <div class="form-section" id="sec4">
-    <div class="section-header">
-      <div class="section-num">4</div>
-      <div class="section-title-text">病史與生活習慣</div>
-      <div class="section-desc">可複選</div>
-    </div>
-
-    <div class="sub-hd" style="margin-top:0">曾做過的處理方式</div>
-    <div class="check-grid wide">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>從未處理</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>就醫看診</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>物理治療</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>整脊 / 整骨</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>按摩 / 推拿</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>針灸</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>手術</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>服用止痛藥</div>
-    </div>
-
-    <div class="sub-hd">工作 / 生活型態</div>
-    <div class="check-grid wide">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>久坐辦公</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>久站工作</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>重複性動作</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>搬重物</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>規律運動</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>長時間開車</div>
-    </div>
-
-    <div class="sub-hd">需告知的特殊狀況</div>
-    <div class="check-grid wide">
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>骨質疏鬆</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>心血管疾病</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>糖尿病</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>懷孕中</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>皮膚過敏</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>金屬植入物</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>近期手術</div>
-      <div class="ck-item" onclick="ckToggle(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>無以上狀況</div>
-    </div>
-
-    <div class="nav-row">
-      <button class="btn-back" onclick="goBack(4)">← 上一步</button>
-      <button class="btn-next" onclick="goNext(4)">下一步：選擇方案 →</button>
-    </div>
+  <div class="field-row">
+    <div class="field-group"><div class="label">緊急聯絡人</div><input class="inp" id="f-ec-name" type="text" placeholder="姓名"/></div>
+    <div class="field-group"><div class="label">緊急聯絡電話</div><input class="inp" id="f-ec-phone" type="tel" placeholder="電話"/></div>
   </div>
-
-  <!-- Section 5: 預約方案 + 同意書 -->
-  <div class="form-section" id="sec5">
-    <div class="section-header">
-      <div class="section-num">5</div>
-      <div class="section-title-text">本次預約方案</div>
-    </div>
-
-    <div class="plan-grid">
-      <div class="plan-card" onclick="selectPlan(this,'體驗價','799','單次體驗')">
-        <div class="plan-name">體驗價</div>
-        <div class="plan-price">$799</div>
-        <div class="plan-price-sub">單次體驗，了解療程</div>
-      </div>
-      <div class="plan-card" onclick="selectPlan(this,'部位處理','899','指定部位專項處理')">
-        <div class="plan-name">部位處理</div>
-        <div class="plan-price">$899</div>
-        <div class="plan-price-sub">指定部位專項處理</div>
-      </div>
-      <div class="plan-card" onclick="selectPlan(this,'全身調理','1800','一次完整全身調理')">
-        <div class="plan-name">全身調理</div>
-        <div class="plan-price">$1,800</div>
-        <div class="plan-price-sub">一次完整全身調理</div>
-      </div>
-      <div class="plan-card featured" onclick="selectPlan(this,'身體重建計畫','7500','5次方案，平均$1,500/次')">
-        <div class="plan-badge">推薦</div>
-        <div class="plan-name">身體重建計畫</div>
-        <div class="plan-price">$7,500</div>
-        <div class="plan-price-sub">5次方案，平均 $1,500 / 次</div>
-      </div>
-      <div class="plan-card" onclick="selectPlan(this,'長期結構調整會員','12500','10次方案，平均$1,250/次')">
-        <div class="plan-name">長期結構調整會員</div>
-        <div class="plan-price">$12,500</div>
-        <div class="plan-price-sub">10次方案，平均 $1,250 / 次</div>
-      </div>
-      <div class="plan-card" id="plan-other" onclick="selectPlan(this,'其他','0','')">
-        <div class="plan-name">其他 / 待確認</div>
-        <div class="plan-price" style="font-size:14px;color:var(--ink3)">與治療師討論</div>
-        <div class="plan-price-sub">尚未決定，預約後再確認</div>
-        <div class="plan-other-input" id="other-input-wrap">
-          <input class="field-input" id="other-desc" type="text" placeholder="請簡述您的需求..." onclick="event.stopPropagation()" style="margin-top:8px"/>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:20px">
-      <div class="field-group">
-        <div class="field-label">其他想告訴治療師的事（選填）</div>
-        <textarea class="field-input" id="f-extra" placeholder="例：最近壓力較大、睡眠品質差，或任何想提前告知的事..."></textarea>
-      </div>
-    </div>
-
-    <div style="height:1px;background:var(--border);margin:20px 0"></div>
-
-    <div class="field-label" style="margin-bottom:10px">同意書</div>
-    <div class="consent-text">
-      本人同意提供以上個人資料，<strong>僅供 Bloom 身體調理中心</strong>進行療程記錄與後續聯繫使用，不會提供予任何第三方。<br/><br/>
-      本人確認所填資料屬實，並了解療程前將由治療師進行評估確認。若身體狀況有任何變化，將主動告知治療師。<strong>療程進行中如有不適，可隨時告知停止。</strong>
-    </div>
-    <div class="ck-item" id="consent-item" onclick="ckToggle(this)" style="width:fit-content">
-      <div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      我已閱讀並同意以上條款
-    </div>
-    <div class="field-error" id="err-consent" style="display:none;margin-top:6px">請先勾選同意條款</div>
-    <div class="field-error" id="err-plan" style="display:none;margin-top:6px">請選擇一個預約方案</div>
-
-    <div class="nav-row">
-      <button class="btn-back" onclick="goBack(5)">← 上一步</button>
-      <button class="btn-submit" onclick="submitForm()">送出病歷表 →</button>
-    </div>
+  <div class="sub-hd">如何得知我們</div>
+  <div class="rd-grid lg" id="referral-grid">
+    <div class="rd" onclick="rdSel(this,'referral')"><div class="rd-dot"></div>朋友介紹</div>
+    <div class="rd" onclick="rdSel(this,'referral')"><div class="rd-dot"></div>Instagram</div>
+    <div class="rd" onclick="rdSel(this,'referral')"><div class="rd-dot"></div>Facebook</div>
+    <div class="rd" onclick="rdSel(this,'referral')"><div class="rd-dot"></div>Google 搜尋</div>
+    <div class="rd" onclick="rdSel(this,'referral')"><div class="rd-dot"></div>路過看到</div>
+    <div class="rd" onclick="rdSel(this,'referral')"><div class="rd-dot"></div>其他</div>
   </div>
-
-  <!-- Thank you -->
-  <div class="thankyou" id="thankyou">
-    <div class="ty-icon">
-      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    </div>
-    <div class="ty-title">感謝您填寫完成！</div>
-    <div class="ty-sub">我們已收到您的病歷資料。<br/>治療師將在預約前確認您的狀況，期待為您服務。</div>
-    <div class="ty-card">
-      <div class="ty-card-title">您填寫的摘要</div>
-      <div class="ty-summary" id="ty-summary-text"></div>
-    </div>
-    <div class="ty-card">
-      <div class="ty-card-title">加入 LINE 官方帳號</div>
-      <div style="font-size:13px;color:var(--ink3);margin-bottom:10px;line-height:1.6">加入後可接收預約確認通知、療程提醒，並透過 LINE 直接與治療師溝通。</div>
-      <button class="line-btn" onclick="alert('請將此按鈕連結至您的 LINE@ 網址')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5C21 16.75 16.5 21 11 21c-1.1 0-2.1-.15-3.1-.45L3 21l1.5-4.5C3.55 15.05 3 13.32 3 11.5 3 6.25 7.5 2 13 2s8 4.25 8 9.5z"/></svg>
-        加入 LINE 官方帳號
-      </button>
-    </div>
-  </div>
-
+  <div class="nav-row"><button class="btn-next" onclick="goNext(1)">下一步：主訴部位 →</button></div>
 </div>
+
+<!-- ── STEP 2 ── -->
+<div class="form-section" id="sec2">
+  <div class="section-hd"><div class="section-num">2</div><div class="section-title">主訴部位</div><div class="section-note">可複選</div></div>
+  <div class="sub-hd" style="margin-top:0">頭頸部</div>
+  <div class="ck-grid sm">
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>頭部</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>頸部</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>下顎 / TMJ</div>
+  </div>
+  <div class="sub-hd">上肢</div>
+  <div class="ck-grid sm">
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>肩膀</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>上臂</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>手肘</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>前臂</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>手腕 / 手掌</div>
+  </div>
+  <div class="sub-hd">軀幹</div>
+  <div class="ck-grid sm">
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>上背</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>中背</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>下背 / 腰部</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>薦椎 / 尾椎</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>胸口 / 肋骨</div>
+  </div>
+  <div class="sub-hd">下肢</div>
+  <div class="ck-grid sm">
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>臀部 / 髖</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>大腿</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>膝蓋</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>小腿</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>腳踝</div>
+    <div class="ck" data-group="parts" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>足底 / 腳趾</div>
+  </div>
+  <div class="nav-row"><button class="btn-back" onclick="goBack(2)">← 上一步</button><button class="btn-next" onclick="goNext(2)">下一步：症狀描述 →</button></div>
+</div>
+
+<!-- ── STEP 3 ── -->
+<div class="form-section" id="sec3">
+  <div class="section-hd"><div class="section-num">3</div><div class="section-title">症狀描述</div><div class="section-note">可複選</div></div>
+  <div class="sub-hd" style="margin-top:0">症狀類型</div>
+  <div class="ck-grid">
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>痠痛</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>緊繃僵硬</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>麻木感</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>刺痛 / 放射痛</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>活動受限</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>無力感</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>腫脹</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>關節彈響</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>姿勢問題</div>
+    <div class="ck" data-group="symptoms" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>頭痛 / 頭暈</div>
+  </div>
+  <div class="sub-hd">疼痛程度</div>
+  <div class="pain-scale" id="painScale">
+    <button class="pb" onclick="setPain(1)" type="button">1</button><button class="pb" onclick="setPain(2)" type="button">2</button><button class="pb" onclick="setPain(3)" type="button">3</button><button class="pb" onclick="setPain(4)" type="button">4</button><button class="pb" onclick="setPain(5)" type="button">5</button><button class="pb" onclick="setPain(6)" type="button">6</button><button class="pb" onclick="setPain(7)" type="button">7</button><button class="pb" onclick="setPain(8)" type="button">8</button><button class="pb" onclick="setPain(9)" type="button">9</button><button class="pb" onclick="setPain(10)" type="button">10</button>
+  </div>
+  <div class="pain-hint"><span>不太痛</span><span>非常劇烈</span></div>
+  <div class="sub-hd">持續時間</div>
+  <div class="rd-grid" id="duration-grid">
+    <div class="rd" onclick="rdSel(this,'duration')"><div class="rd-dot"></div>3 天以內</div>
+    <div class="rd" onclick="rdSel(this,'duration')"><div class="rd-dot"></div>1 週內</div>
+    <div class="rd" onclick="rdSel(this,'duration')"><div class="rd-dot"></div>1 個月內</div>
+    <div class="rd" onclick="rdSel(this,'duration')"><div class="rd-dot"></div>1–3 個月</div>
+    <div class="rd" onclick="rdSel(this,'duration')"><div class="rd-dot"></div>3–6 個月</div>
+    <div class="rd" onclick="rdSel(this,'duration')"><div class="rd-dot"></div>半年以上</div>
+  </div>
+  <div class="sub-hd">何時較明顯</div>
+  <div class="ck-grid">
+    <div class="ck" data-group="timing" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>早晨起床</div>
+    <div class="ck" data-group="timing" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>久坐後</div>
+    <div class="ck" data-group="timing" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>運動後</div>
+    <div class="ck" data-group="timing" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>工作時</div>
+    <div class="ck" data-group="timing" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>夜間 / 睡前</div>
+    <div class="ck" data-group="timing" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>持續性</div>
+  </div>
+  <div class="nav-row"><button class="btn-back" onclick="goBack(3)">← 上一步</button><button class="btn-next" onclick="goNext(3)">下一步：病史 →</button></div>
+</div>
+
+<!-- ── STEP 4 ── -->
+<div class="form-section" id="sec4">
+  <div class="section-hd"><div class="section-num">4</div><div class="section-title">病史與生活習慣</div><div class="section-note">可複選</div></div>
+  <div class="sub-hd" style="margin-top:0">曾做過的處理方式</div>
+  <div class="ck-grid lg">
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>從未處理</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>就醫看診</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>物理治療</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>整脊 / 整骨</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>按摩 / 推拿</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>針灸</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>手術</div>
+    <div class="ck" data-group="treatments" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>服用止痛藥</div>
+  </div>
+  <div class="sub-hd">工作 / 生活型態</div>
+  <div class="ck-grid lg">
+    <div class="ck" data-group="lifestyle" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>久坐辦公</div>
+    <div class="ck" data-group="lifestyle" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>久站工作</div>
+    <div class="ck" data-group="lifestyle" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>重複性動作</div>
+    <div class="ck" data-group="lifestyle" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>搬重物</div>
+    <div class="ck" data-group="lifestyle" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>規律運動</div>
+    <div class="ck" data-group="lifestyle" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>長時間開車</div>
+  </div>
+  <div class="sub-hd">需告知的特殊狀況</div>
+  <div class="ck-grid lg">
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>骨質疏鬆</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>心血管疾病</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>糖尿病</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>懷孕中</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>皮膚過敏</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>金屬植入物</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>近期手術</div>
+    <div class="ck" data-group="special" onclick="ckTog(this)"><div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>無以上狀況</div>
+  </div>
+  <div class="nav-row"><button class="btn-back" onclick="goBack(4)">← 上一步</button><button class="btn-next" onclick="goNext(4)">下一步：選擇方案 →</button></div>
+</div>
+
+<!-- ── STEP 5 ── -->
+<div class="form-section" id="sec5">
+  <div class="section-hd"><div class="section-num">5</div><div class="section-title">本次預約方案</div></div>
+  <div class="plan-grid">
+    <div class="plan-card" onclick="selPlan(this,'體驗價','$799')">
+      <div class="plan-name">體驗價</div>
+      <div class="plan-price">$799</div>
+      <div class="plan-desc">單次體驗，了解療程</div>
+    </div>
+    <div class="plan-card" onclick="selPlan(this,'部位處理','$899')">
+      <div class="plan-name">部位處理</div>
+      <div class="plan-price">$899</div>
+      <div class="plan-desc">指定部位專項處理</div>
+    </div>
+    <div class="plan-card" onclick="selPlan(this,'全身調理','$1,800')">
+      <div class="plan-name">全身調理</div>
+      <div class="plan-price">$1,800</div>
+      <div class="plan-desc">一次完整全身調理</div>
+    </div>
+    <div class="plan-card" onclick="selPlan(this,'身體重建計畫（5次）','$7,500')">
+      <div class="plan-featured-badge">推薦</div>
+      <div class="plan-name">身體重建計畫</div>
+      <div class="plan-price">$7,500</div>
+      <div class="plan-desc">5 次方案，平均 $1,500</div>
+    </div>
+    <div class="plan-card" onclick="selPlan(this,'長期結構調整會員（10次）','$12,500')">
+      <div class="plan-name">長期結構調整會員</div>
+      <div class="plan-price">$12,500</div>
+      <div class="plan-desc">10 次方案，平均 $1,250</div>
+    </div>
+    <div class="plan-card" id="plan-other-card" onclick="selPlan(this,'其他/待確認','')">
+      <div class="plan-name">其他 / 待確認</div>
+      <div class="plan-price" style="font-size:13px;color:var(--ink3)">與治療師討論</div>
+      <div class="plan-desc">尚未決定，預約後再確認</div>
+      <div class="plan-other-extra" id="plan-other-extra">
+        <input class="inp" id="other-detail" type="text" placeholder="請簡述需求..." onclick="event.stopPropagation()" style="margin-top:8px"/>
+      </div>
+    </div>
+  </div>
+  <div class="err-msg" id="e-plan" style="margin-top:8px">請選擇一個預約方案</div>
+
+  <div style="margin-top:18px">
+    <div class="field-group">
+      <div class="label">其他想告訴治療師的事（選填）</div>
+      <textarea class="inp" id="f-extra" placeholder="例：最近壓力大、睡眠品質差，或任何想提前告知的事..."></textarea>
+    </div>
+  </div>
+
+  <div style="height:1px;background:var(--border);margin:18px 0"></div>
+
+  <div class="label" style="margin-bottom:10px">同意書</div>
+  <div class="consent-box">
+    本人同意提供以上個人資料，<strong>僅供 元序健康調理中心</strong>進行療程記錄與後續聯繫使用，不會提供予任何第三方。<br/><br/>
+    本人確認所填資料屬實，並了解療程前將由治療師進行評估確認。若身體狀況有任何變化，將主動告知治療師。<strong>療程進行中如有不適，可隨時告知停止。</strong>
+  </div>
+  <div class="ck" id="consent-ck" onclick="ckTog(this)" style="width:fit-content">
+    <div class="ck-box"><svg class="ck-tick" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    我已閱讀並同意以上條款
+  </div>
+  <div class="err-msg" id="e-consent" style="margin-top:6px">請先勾選同意條款</div>
+
+  <div class="nav-row">
+    <button class="btn-back" onclick="goBack(5)">← 上一步</button>
+    <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+      <span id="submit-label">送出病歷表</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── 感謝頁面 ── -->
+<div class="thankyou" id="thankyou">
+  <div class="ty-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <div class="ty-title">感謝您填寫完成！</div>
+  <div class="ty-sub">我們已收到您的病歷資料。<br/>治療師將在預約前與您確認，期待為您服務。</div>
+  <div class="ty-card">
+    <div class="ty-card-title">您的填寫摘要</div>
+    <div class="ty-summary" id="ty-summary"></div>
+  </div>
+  <div class="ty-card">
+    <div class="ty-card-title">加入 LINE 官方帳號</div>
+    <div style="font-size:12.5px;color:var(--ink3);margin-bottom:10px;line-height:1.7">加入後可接收預約確認通知、療程提醒，並直接與治療師溝通。</div>
+    <button class="line-btn" onclick="window.open(LINE_OA_URL,'_blank')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5C21 16.75 16.5 21 11 21c-1.1 0-2.1-.15-3.1-.45L3 21l1.5-4.5C3.55 15.05 3 13.32 3 11.5 3 6.25 7.5 2 13 2s8 4.25 8 9.5z"/></svg>
+      加入 LINE 官方帳號
+    </button>
+  </div>
+</div>
+
+</div><!-- end form-body -->
 
 <script>
 var currentStep=1;
 var painLevel=0;
 var selectedPlanName='';
+var isSubmitting=false;
 
-function ckToggle(el){
+/* ── Checkbox toggle ── */
+function ckTog(el){
   el.classList.toggle('on');
   var box=el.querySelector('.ck-box');
   if(el.classList.contains('on')){box.style.background='#0d9488';box.style.borderColor='#0d9488';}
   else{box.style.background='';box.style.borderColor='';}
 }
 
-function rdSelect(el,group){
-  var parent=document.getElementById(group+'-grid');
-  parent.querySelectorAll('.rd-item').forEach(function(r){
+/* ── Radio select ── */
+function rdSel(el,group){
+  document.getElementById(group+'-grid').querySelectorAll('.rd').forEach(function(r){
     r.classList.remove('on');
-    r.querySelector('.rd-dot').style.cssText='';
+    var d=r.querySelector('.rd-dot');d.style.background='';d.style.borderColor='';d.style.boxShadow='';
   });
   el.classList.add('on');
   var dot=el.querySelector('.rd-dot');
-  dot.style.background='#0d9488';dot.style.borderColor='#0d9488';
-  dot.style.boxShadow='inset 0 0 0 3px #f0fdfa';
+  dot.style.background='#0d9488';dot.style.borderColor='#0d9488';dot.style.boxShadow='inset 0 0 0 3px #f0fdfa';
 }
 
+/* ── Pain scale ── */
 function setPain(n){
   painLevel=n;
-  var btns=document.querySelectorAll('#painScale .pain-btn');
-  btns.forEach(function(b){b.className='pain-btn';});
+  var btns=document.querySelectorAll('#painScale .pb');
+  btns.forEach(function(b){b.className='pb';});
   for(var i=0;i<n;i++){btns[i].classList.add('p'+n);}
 }
 
-function selectPlan(el,name,price,desc){
+/* ── Plan select ── */
+function selPlan(el,name,price){
   document.querySelectorAll('.plan-card').forEach(function(c){c.classList.remove('on');});
   el.classList.add('on');
-  selectedPlanName=name;
-  var wrap=document.getElementById('other-input-wrap');
-  if(name==='其他'){wrap.classList.add('show');}
-  else{wrap.classList.remove('show');}
-  document.getElementById('err-plan').style.display='none';
+  selectedPlanName=name+(price?' ('+price+')':'');
+  document.getElementById('plan-other-extra').classList.toggle('show',name==='其他/待確認');
+  document.getElementById('e-plan').style.display='none';
 }
 
-function updateSteps(step){
+/* ── Step navigation ── */
+function updateSteps(s){
   for(var i=1;i<=5;i++){
-    var dot=document.getElementById('sd'+i);
-    var lbl=document.getElementById('sl'+i);
-    var line=document.getElementById('sline'+i);
-    if(i<step){dot.classList.add('done');dot.classList.remove('active');lbl.classList.remove('active');}
-    else if(i===step){dot.classList.remove('done');dot.classList.add('active');lbl.classList.add('active');}
-    else{dot.classList.remove('done','active');lbl.classList.remove('active');}
-    if(line){
-      if(i<step){line.classList.add('done');}
-      else{line.classList.remove('done');}
-    }
+    var dot=document.getElementById('sd'+i),lbl=document.getElementById('sl'+i),line=document.getElementById('sline'+i);
+    if(i<s){dot.className='step-dot done';lbl.className='step-label';}
+    else if(i===s){dot.className='step-dot active';lbl.className='step-label active';}
+    else{dot.className='step-dot';lbl.className='step-label';}
+    if(line) line.className=i<s?'step-line done':'step-line';
   }
-  document.getElementById('progressFill').style.width=(step/5*100)+'%';
+  document.getElementById('pf').style.width=(s/5*100)+'%';
 }
 
-function goNext(step){
-  if(step===1){
+function goNext(s){
+  if(s===1){
     var name=document.getElementById('f-name').value.trim();
     var phone=document.getElementById('f-phone').value.trim();
     var ok=true;
-    if(!name){document.getElementById('f-name').classList.add('error');document.getElementById('err-name').style.display='block';ok=false;}
-    else{document.getElementById('f-name').classList.remove('error');document.getElementById('err-name').style.display='none';}
-    if(!phone){document.getElementById('f-phone').classList.add('error');document.getElementById('err-phone').style.display='block';ok=false;}
-    else{document.getElementById('f-phone').classList.remove('error');document.getElementById('err-phone').style.display='none';}
-    if(!ok)return;
+    if(!name){document.getElementById('f-name').classList.add('err');document.getElementById('e-name').style.display='block';ok=false;}
+    else{document.getElementById('f-name').classList.remove('err');document.getElementById('e-name').style.display='none';}
+    if(!phone){document.getElementById('f-phone').classList.add('err');document.getElementById('e-phone').style.display='block';ok=false;}
+    else{document.getElementById('f-phone').classList.remove('err');document.getElementById('e-phone').style.display='none';}
+    if(!ok) return;
   }
-  document.getElementById('sec'+step).classList.remove('active');
-  document.getElementById('sec'+(step+1)).classList.add('active');
-  currentStep=step+1;
-  updateSteps(currentStep);
+  document.getElementById('sec'+s).classList.remove('active');
+  document.getElementById('sec'+(s+1)).classList.add('active');
+  currentStep=s+1; updateSteps(currentStep);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function goBack(step){
-  document.getElementById('sec'+step).classList.remove('active');
-  document.getElementById('sec'+(step-1)).classList.add('active');
-  currentStep=step-1;
-  updateSteps(currentStep);
+function goBack(s){
+  document.getElementById('sec'+s).classList.remove('active');
+  document.getElementById('sec'+(s-1)).classList.add('active');
+  currentStep=s-1; updateSteps(currentStep);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+/* ── Collect checked items ── */
+function getCks(group){
+  var items=[];
+  document.querySelectorAll('.ck[data-group="'+group+'"].on').forEach(function(el){
+    items.push(el.innerText.trim());
+  });
+  return items;
+}
+function getRd(gridId){
+  var el=document.querySelector('#'+gridId+' .rd.on');
+  return el?el.innerText.trim():'';
+}
+
+/* ── Submit ── */
 function submitForm(){
-  var consent=document.getElementById('consent-item').classList.contains('on');
+  if(isSubmitting) return;
+  var consent=document.getElementById('consent-ck').classList.contains('on');
   var ok=true;
-  if(!consent){document.getElementById('err-consent').style.display='block';ok=false;}
-  else{document.getElementById('err-consent').style.display='none';}
-  if(!selectedPlanName){document.getElementById('err-plan').style.display='block';ok=false;}
-  else{document.getElementById('err-plan').style.display='none';}
-  if(!ok)return;
-
-  var name=document.getElementById('f-name').value.trim();
-  var phone=document.getElementById('f-phone').value.trim();
-  var bday=document.getElementById('f-bday').value;
-  var gender=document.getElementById('f-gender').value;
-  var extra=document.getElementById('f-extra').value.trim();
-
-  var parts=document.querySelectorAll('#sec2 .ck-item.on');
-  var partList=Array.from(parts).map(function(e){return e.innerText.trim();});
-
-  var symptoms=document.querySelectorAll('#sec3 .ck-item.on');
-  var symptomList=Array.from(symptoms).map(function(e){return e.innerText.trim();});
-
-  var summary='<span>姓名：</span>'+name+'<br/>';
-  summary+='<span>電話：</span>'+phone+'<br/>';
-  if(bday)summary+='<span>生日：</span>'+bday+'<br/>';
-  if(gender)summary+='<span>性別：</span>'+gender+'<br/>';
-  if(partList.length)summary+='<span>主訴部位：</span>'+partList.join('、')+'<br/>';
-  if(symptomList.length)summary+='<span>症狀：</span>'+symptomList.join('、')+'<br/>';
-  if(painLevel)summary+='<span>疼痛程度：</span>'+painLevel+' / 10<br/>';
-  summary+='<span>選擇方案：</span>'+selectedPlanName+'<br/>';
-  if(extra)summary+='<span>備註：</span>'+extra;
+  if(!consent){document.getElementById('e-consent').style.display='block';ok=false;}
+  else document.getElementById('e-consent').style.display='none';
+  if(!selectedPlanName){document.getElementById('e-plan').style.display='block';ok=false;}
+  else document.getElementById('e-plan').style.display='none';
+  if(!ok) return;
 
   var formData={
-    name:name,phone:phone,birthday:bday,gender:gender,
-    parts:partList,symptoms:symptomList,painLevel:painLevel,
-    plan:selectedPlanName,extra:extra,
+    name:document.getElementById('f-name').value.trim(),
+    phone:document.getElementById('f-phone').value.trim(),
+    birthday:document.getElementById('f-bday').value,
+    gender:document.getElementById('f-gender').value,
+    job:document.getElementById('f-job').value.trim(),
+    lineId:document.getElementById('f-line').value.trim(),
+    ecName:document.getElementById('f-ec-name').value.trim(),
+    ecPhone:document.getElementById('f-ec-phone').value.trim(),
+    referral:getRd('referral'),
+    parts:getCks('parts'),
+    symptoms:getCks('symptoms'),
+    painLevel:painLevel,
+    duration:getRd('duration'),
+    timing:getCks('timing'),
+    treatments:getCks('treatments'),
+    lifestyle:getCks('lifestyle'),
+    special:getCks('special'),
+    plan:selectedPlanName,
+    extra:document.getElementById('f-extra').value.trim(),
     submittedAt:new Date().toISOString()
   };
 
+  // Save to localStorage (for CRM pickup)
   try{
     var pending=JSON.parse(localStorage.getItem('bloom_pending_intakes')||'[]');
     pending.push(formData);
     localStorage.setItem('bloom_pending_intakes',JSON.stringify(pending));
   }catch(e){}
 
-  document.getElementById('ty-summary-text').innerHTML=summary;
+  // Show loading
+  isSubmitting=true;
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  document.getElementById('submit-label').textContent='送出中...';
+  btn.insertAdjacentHTML('afterbegin','<div class="spinner"></div>');
+
+  // Send to Google Apps Script webhook
+  if(WEBHOOK_URL && WEBHOOK_URL.indexOf('make.com')>-1){
+    fetch(WEBHOOK_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(formData)
+    }).then(function(){
+      showThankyou(formData);
+    }).catch(function(){
+      // Even if fetch fails (no-cors mode), show thank you
+      showThankyou(formData);
+    });
+  } else {
+    // No webhook configured — still show thank you
+    setTimeout(function(){showThankyou(formData);},600);
+  }
+}
+
+function showThankyou(d){
+  var summary='<span>姓名：</span>'+d.name+'<br/>';
+  summary+='<span>電話：</span>'+d.phone+'<br/>';
+  if(d.birthday) summary+='<span>生日：</span>'+d.birthday+'<br/>';
+  if(d.parts&&d.parts.length) summary+='<span>主訴部位：</span>'+d.parts.join('、')+'<br/>';
+  if(d.symptoms&&d.symptoms.length) summary+='<span>症狀：</span>'+d.symptoms.join('、')+'<br/>';
+  if(d.painLevel) summary+='<span>疼痛程度：</span>'+d.painLevel+' / 10<br/>';
+  summary+='<span>預約方案：</span>'+d.plan;
+  if(d.extra) summary+='<br/><span>備註：</span>'+d.extra;
+  document.getElementById('ty-summary').innerHTML=summary;
   document.getElementById('sec5').classList.remove('active');
   document.getElementById('thankyou').classList.add('show');
   window.scrollTo({top:0,behavior:'smooth'});
